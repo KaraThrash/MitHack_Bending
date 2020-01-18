@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Handtracking : MonoBehaviour
 {
+  public Bending bending;
   public int element,stationarycount,maxstationarycount; //air,earth,fire,water
   public Transform leftHand,rightHand,elementManagers;
   public Vector3 lastposLeft,lastposRight;
@@ -22,6 +23,7 @@ public class Handtracking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
       // TestControls();
         CreateElement();
       if(heldElement != null){
@@ -65,6 +67,7 @@ public class Handtracking : MonoBehaviour
     }
     public void HandMovementLogic()
     {
+
       if(Vector3.Distance(lastposLeft, leftHand.position) >= distanceToCheckFor)
       {
         //hand moved enough to not be hand shaking
@@ -72,19 +75,84 @@ public class Handtracking : MonoBehaviour
 
         //check left or right movement
         string tempstring = "";
-        if(Mathf.Abs(lastposLeft.x - leftHand.position.x) >= distanceToCheckFor){Debug.Log("X");tempstring += "x";}
+        Vector3 handmovement = new Vector3(0,0,0);
+        if(Mathf.Abs(lastposLeft.x - leftHand.position.x) >= distanceToCheckFor){
+          Debug.Log("X");tempstring += "x";
+          handmovement = new Vector3(Mathf.Sign(lastposLeft.x - leftHand.position.x),0,0);
+        }
         //check verticalmovement
-          if(Mathf.Abs(lastposLeft.y - leftHand.position.y) >= distanceToCheckFor){Debug.Log("Y");tempstring += "y";}
+          if(Mathf.Abs(lastposLeft.y - leftHand.position.y) >= distanceToCheckFor){
+            handmovement = new Vector3(0,Mathf.Sign(lastposLeft.y - leftHand.position.y),0);
+            Debug.Log("Y");
+            tempstring += "y";
+          }
           //check forward back movement
-            if(Mathf.Abs(lastposLeft.z - leftHand.position.z) >= distanceToCheckFor){Debug.Log("Z");tempstring += "z";}
+            if(Mathf.Abs(lastposLeft.z - leftHand.position.z) >= distanceToCheckFor){
+                handmovement = new Vector3(0,0,Mathf.Sign(lastposLeft.z - leftHand.position.z));
+              Debug.Log("Z");tempstring += "z";
+            }
+
+            if(handmovement == new Vector3(0,0,-1))
+            {
+              bending.Push(leftHand,heldElement.GetComponent<Element>());
+              Debug.Log("push");
+            }
+            else if(handmovement == new Vector3(0,0,1))
+            {
+                bending.Pull(leftHand,heldElement.GetComponent<Element>());
+              Debug.Log("pull");
+            }
+            else if(handmovement == new Vector3(0,-1,0))
+            {
+              Debug.Log("up");
+            }
+            else if(handmovement == new Vector3(0,1,0))
+            {
+              Debug.Log("down");
+            }
+            else if(handmovement == new Vector3(-1,0,0))
+            {
+              Debug.Log("left-right");
+            }
+            else if(handmovement == new Vector3(1,0,0))
+            {
+              Debug.Log("right-left");
+            }
+            else if(handmovement == new Vector3(0,-1,-1))
+            {
+              Debug.Log("up forward");
+            }
+            else if(handmovement == new Vector3(0,1,-1))
+            {
+              Debug.Log("down forward");
+            }
+            else if(handmovement == new Vector3(-1,-1,0))
+            {
+              Debug.Log("right up");
+            }
+            else if(handmovement == new Vector3(1,-1,0))
+            {
+              Debug.Log("leftup");
+            }
+            else if(handmovement == new Vector3(-1,1,0))
+            {
+              Debug.Log("right down");
+            }
+            else if(handmovement == new Vector3(1,1,0))
+            {
+              Debug.Log("leftdown");
+            }
+            else
+            {}
             lastposLeft = leftHand.transform.position;
-            debugMovementDisplay2.text = tempstring;
+            debugMovementDisplay2.text = tempstring + (handmovement.ToString());
             stationarycount = 0;
-            GameObject clone = Instantiate(elements[element],leftHand.position,leftHand.rotation) as GameObject;
-            clone.GetComponent<DieInTime>().lifetime = 10.0f;
-            clone.GetComponent<Rigidbody>().useGravity = true;
-            clone.GetComponent<Element>().currentlyHeld = false;
-          clone.GetComponent<Collider>().enabled = true;
+          //   GameObject clone = Instantiate(elements[element],leftHand.position,leftHand.rotation) as GameObject;
+          //   clone.GetComponent<DieInTime>().lifetime = 10.0f;
+          //   clone.GetComponent<Rigidbody>().useGravity = true;
+          //   clone.GetComponent<Element>().currentlyHeld = false;
+          // clone.GetComponent<Collider>().enabled = true;
+          leftHand.LookAt(leftHand.position + (leftHand.position - lastposLeft ));
       }
       else
       {
@@ -100,9 +168,9 @@ public class Handtracking : MonoBehaviour
 
         }else{
         lastposLeft = leftHand.transform.position;
-        Debug.Log("NONE");
-        debugMovementDisplay2.text = "None";
-        elementManagers.GetChild(element).GetComponent<ElementManager>().GetClosestElement(leftHand);
+        // Debug.Log("NONE");
+        // debugMovementDisplay2.text = "None";
+        // elementManagers.GetChild(element).GetComponent<ElementManager>().GetClosestElement(leftHand);
         }
       }
 
