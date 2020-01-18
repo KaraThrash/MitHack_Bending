@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElementManager : MonoBehaviour
 {
   public List<GameObject> elements;
+  public int maxPullForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,19 @@ public class ElementManager : MonoBehaviour
       }
     closestElement.GetComponent<Element>().Grab(playerPos);
     }
+
+    public void GetAllInRangeAndPull(Transform playerPos,int range,float pullforce)
+    {
+
+      foreach(GameObject go in elements)
+      {
+        if(go != null && go.GetComponent<Rigidbody>() != null && Vector3.Distance(go.transform.position,playerPos.position) < range)
+        {go.GetComponent<Rigidbody>().AddForce((playerPos.position - go.transform.position) * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+
+      }
+
+    }
+
     public void AddElementToList(GameObject newelement)
     {elements.Add(newelement);}
 }

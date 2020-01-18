@@ -9,13 +9,14 @@ public class Element : MonoBehaviour
   public float movespeed;
   public Handtracking handtracker;
   public ElementManager elementManager;
-  public string elementtype;
+  public int elementType,currentStrength;
+  public string elementName;
   public bool myKinematic,myGravity;
     // Start is called before the first frame update
     void Start()
     {
       // handtracker = GameObject.Find("HandController").GetComponent<Handtracking>();
-    elementManager  = GameObject.Find(elementtype + "Manager").GetComponent<ElementManager>();
+    elementManager  = GameObject.Find(elementName + "Manager").GetComponent<ElementManager>();
     elementManager.AddElementToList(this.gameObject);
     }
 
@@ -41,5 +42,13 @@ public class Element : MonoBehaviour
       targetpos = newtarget;
       myGravity = GetComponent<Rigidbody>().useGravity;
       GetComponent<Rigidbody>().useGravity = false;
+    }
+    public void OnTriggerStay(Collider col)
+    {
+            if(currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
+            {
+              col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position) * currentStrength * Time.deltaTime,ForceMode.Impulse );
+
+            }
     }
 }
