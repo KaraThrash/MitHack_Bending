@@ -1,0 +1,25 @@
+newmtl BranchSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd tree_DM.tif
+bump tree_NM.tif -bm 1
+Ni 1.00
+Ks 0.00 0.00 0.00
+newmtl Squirrel_low_Polipaint1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.15 0.15 0.15
+Tf 1.00 1.00 1.00
+map_Kd Squirrel_DIffuse.tif
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks Squirrel_spec.tif
+newmtl blinn2SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00

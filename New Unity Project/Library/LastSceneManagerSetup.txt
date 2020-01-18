@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Dan.unity
+=======
+- path: Assets/Scenes/Evelyn.unity
+>>>>>>> 583d09f6f80f6f45eff6eb661f195d028a346ec1
   isLoaded: 1
   isActive: 1
   isSubScene: 0
