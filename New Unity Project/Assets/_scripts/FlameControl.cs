@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FlameControl : MonoBehaviour
 {
+    public float distance = 5f;
+    public GameObject character;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,7 @@ public class FlameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 camDir = character.GetComponent<Camera>().transform.forward;
+        transform.position =  character.transform.position + camDir * distance;
     }
 }
