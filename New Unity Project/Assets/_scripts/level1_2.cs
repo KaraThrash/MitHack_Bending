@@ -6,6 +6,7 @@ public class level1_2 : MonoBehaviour
 {
     public LevelManager levelManager;
     public float targetTime = 2.0f;
+    public GameObject sphere1, sphere2, sphere3, sphere4;
 
     private bool timerStart = false;
     private bool levelOver = false;
@@ -19,6 +20,14 @@ public class level1_2 : MonoBehaviour
     void Update()
     {
         if (levelOver) return;
+        if (sphere1.GetComponent<ResponsiveObject>().isFlaming() &&
+                sphere2.GetComponent<ResponsiveObject>().isFlaming() &&
+                sphere3.GetComponent<ResponsiveObject>().isFlaming() &&
+                sphere4.GetComponent<ResponsiveObject>().isFlaming()) {
+            levelManager.OpenDoor();
+            levelOver = true;
+        }
+        /*
         int count = 0;
 
         foreach (GameObject x in GameObject.FindGameObjectsWithTag("activatable"))
@@ -34,5 +43,6 @@ public class level1_2 : MonoBehaviour
             levelManager.OpenDoor();
             levelOver = true;
         }
+        */
     }
 }

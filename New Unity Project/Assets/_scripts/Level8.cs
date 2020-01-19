@@ -8,7 +8,7 @@ public class Level8 : MonoBehaviour
     public LevelManager levelManager;
     private bool levelOver = false;
 
-    GameObject tree1, tree2, tree3, tree4;
+    public GameObject tree1, tree2, tree3, tree4;
     // order = 3124
     private int index;
     private GameObject[] order;
@@ -17,11 +17,14 @@ public class Level8 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+
         tree1 = GameObject.Find("tree1");
         tree2 = GameObject.Find("tree2");
         tree3 = GameObject.Find("tree3");
         tree4 = GameObject.Find("tree4");
+        */
 
         order = new GameObject[4];
         order[0] = tree1;

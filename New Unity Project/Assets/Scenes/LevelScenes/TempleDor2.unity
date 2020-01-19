@@ -414,7 +414,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomPoint: {x: 0, y: 0, z: 0}
   splitObject: {fileID: 0}
-  flameEffect: {fileID: 0}
+  flameEffect: {fileID: 2424000522678795302, guid: 3f92bfd8a91be2b41afeed1da6cfb3f0,
+    type: 3}
   tempElem: 2
   flammable: 0
   lightable: 0
@@ -559,7 +560,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomPoint: {x: 0, y: 0, z: 0}
   splitObject: {fileID: 0}
-  flameEffect: {fileID: 0}
+  flameEffect: {fileID: 2424000522678795302, guid: 3f92bfd8a91be2b41afeed1da6cfb3f0,
+    type: 3}
   tempElem: 2
   flammable: 0
   lightable: 0

@@ -80,7 +80,8 @@ public class ResponsiveObject : MonoBehaviour
     private void SetFire() {
         //Destroy(flames, 2);
         Debug.Log("setting on fire");
-        Object flames = Instantiate(Resources.Load("ObjectFire"), transform.position, Quaternion.identity);
+        //Object flames = Instantiate(Resources.Load("ObjectFire"), transform.position, Quaternion.identity);
+        Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
         onFire = true;
     }
 
