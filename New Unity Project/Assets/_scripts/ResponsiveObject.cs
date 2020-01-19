@@ -12,8 +12,12 @@ public class ResponsiveObject : MonoBehaviour
     public Vector3 bottomPoint;
     public GameObject splitObject;
     public Object flameEffect;
+    public int tempElem = 2;
 
     public bool flammable, lightable, growable, splitable;
+
+    private bool onFire = false;
+    private int lastActiveElement = -1;
 
     private float targetScale = 2;
     private float growRate = 1;
@@ -21,16 +25,13 @@ public class ResponsiveObject : MonoBehaviour
     private Vector3 origPos;
 
     private float startSizeChange = -1;
-    private bool doShrink;
 
-    // Start is called before the first frame update
     void Start()
     {
         origHeight = transform.localScale.y;
         origPos = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (startSizeChange > 0)
@@ -47,7 +48,9 @@ public class ResponsiveObject : MonoBehaviour
     {
         GameObject incoming = collision.gameObject;
         Debug.Log(incoming.name + " hit " + gameObject.name);
+
         if (IsElement(incoming)) {
+            lastActiveElement = getElementType(incoming);
             switch (getElementType(incoming)) {
                 case 2: //fire
                     if (flammable) Burn();
@@ -68,15 +71,18 @@ public class ResponsiveObject : MonoBehaviour
     private void Burn() {
         SetFire();
         Destroy(gameObject, 2);
+        //Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
+        //Object flames = Instantiate(Resources.Load("ObjectFire"), transform.position, Quaternion.identity);
+
     }
 
     private void SetFire() {
-        Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
-        Destroy(flames, 2);
+        //Destroy(flames, 2);
+        Object flames = Instantiate(Resources.Load("ObjectFire"), transform.position, Quaternion.identity);
+        onFire = true;
     }
 
     private void Grow() {
-        //doGrow = true;
         targetScale = 2;
         startSizeChange = Time.time;
         return;
@@ -95,8 +101,16 @@ public class ResponsiveObject : MonoBehaviour
     }
 
     private int getElementType(GameObject gobj) {
-        return 2;
-        //Element elem = gameObject.GetComponent<Element>();
-        //return elem.elementType;
+        //return tempElem;
+        return 0;
+        //return gameObject.GetComponent<Element>().elementType;
+    }
+
+    public bool isFlaming() {
+        return onFire;
+    }
+
+    public int LastActiveElement() {
+        return lastActiveElement;
     }
 }
