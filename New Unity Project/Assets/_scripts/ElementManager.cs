@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElementManager : MonoBehaviour
 {
   public List<GameObject> elements;
+  public int elementType;
   public int maxPullForce;
     // Start is called before the first frame update
     void Start()
@@ -47,7 +48,13 @@ public class ElementManager : MonoBehaviour
       foreach(GameObject go in elements)
       {
         if(go != null && go.GetComponent<Rigidbody>() != null && Vector3.Distance(go.transform.position,playerPos.position) < range)
-        {go.GetComponent<Rigidbody>().AddForce(dir * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+        {
+          if(elementType == 1)//earth
+          {go.GetComponent<Rigidbody>().AddForce(dir * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+          if(elementType == 3)//fire
+          {Destroy(go);}
+
+        }
 
       }
 
