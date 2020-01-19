@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Bending : MonoBehaviour
 {
+  public Transform player;
   public int elementBendState,lastaction;
   public GameObject windobj,rock,earthshield,flameThrower,fireEruption,waterBall;
     public GameObject currentWaterBall,lastSpawnedFire,lastSpawnedAir,lastSpawnedEarth;
@@ -78,12 +79,14 @@ public class Bending : MonoBehaviour
                 clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
+                clonefire.GetComponent<Collider>().enabled = true;
                   element.currentStrength++;
               }else
               {
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
                 clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+                clonefire.GetComponent<Collider>().enabled = true;
                 clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
               }
         break;
@@ -181,6 +184,7 @@ public class Bending : MonoBehaviour
                 clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
+                clonefire.GetComponent<Collider>().enabled = true;
                   element.currentStrength++;
               }else
               {
@@ -242,7 +246,13 @@ public class Bending : MonoBehaviour
       case 0://air
         if(midbending == false) //directional gust
         {
-
+          GameObject clone = Instantiate(windobj,player.position,hand.rotation) as GameObject;
+          clone.GetComponent<DieInTime>().lifetime = 0.5f;
+         clone.transform.localScale = new Vector3(Mathf.Clamp(clone.transform.localScale.x +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.y +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.z * element.currentStrength * 0.5f,5,20));
+          clone.GetComponent<Element>().currentStrength = element.currentStrength;
+          clone.transform.LookAt(clone.transform.position + Vector3.up);
+          lastaction = -1;
+            clone.GetComponent<Element>().primary = true;
         }
         else //small directional wind
         {
@@ -273,8 +283,9 @@ public class Bending : MonoBehaviour
                 element.currentStrength++;
             }else
             {
-              GameObject clonefire = Instantiate(fireEruption,hand.position,hand.rotation) as GameObject;
-              clonefire.GetComponent<DieInTime>().lifetime = 0.2f;
+              GameObject clonefire = Instantiate(fireEruption,player.position,Quaternion.identity) as GameObject;
+              clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+              clonefire.GetComponent<Collider>().enabled = true;
               clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
               // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
             }
