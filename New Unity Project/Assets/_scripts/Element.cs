@@ -39,7 +39,11 @@ public class Element : MonoBehaviour
     }
     public void Move()
     {
-      GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position).normalized * movespeed *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime);
+      if(elementType == 3)
+      {GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position).normalized * movespeed * 50 *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime);}
+        else
+        {GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position).normalized * movespeed *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime);}
+
 
     }
     public void Grab(Transform newtarget)
@@ -51,10 +55,10 @@ public class Element : MonoBehaviour
     }
     public void OnTriggerStay(Collider col)
     {
-            if(currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
+            if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
             {
               if(primary == true)
-              {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength ;}
+              {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength * 10;}
                 else
                 {col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * currentStrength * 10 * Time.deltaTime,ForceMode.Impulse );}
 
@@ -63,13 +67,20 @@ public class Element : MonoBehaviour
     }
     public void OnTriggerEnter(Collider col)
     {
-            if(currentStrength != 0 && elementType == 2 )//fire
+            if(currentStrength >= 0 && elementType == 2 )//fire
             {
-              if( col.GetComponent<Element>() == null)
+              if( col.GetComponent<Element>() == null && col.transform.Find("OnFireObj") == null)
               {
-                GameObject clone = Instantiate(this.gameObject,col.transform.position,col.transform.rotation ) as GameObject;
-                clone.GetComponent<DieInTime>().lifetime = 10.0f;
-                clone.GetComponent<Element>().currentStrength = 0;
+
+                      GameObject clone = Instantiate(this.gameObject,col.transform.position  ,Quaternion.identity ) as GameObject;
+                      clone.transform.localScale = clone.transform.localScale * 4;
+                      clone.transform.name = "OnFireObj";
+                      clone.GetComponent<DieInTime>().lifetime = 10.0f;
+                      clone.GetComponent<Element>().currentStrength = -1;
+                      clone.transform.parent = col.transform;
+
+                    currentStrength--;
+                    if(currentStrength <= 0){ Destroy(this.gameObject);}
               }
             }
     }

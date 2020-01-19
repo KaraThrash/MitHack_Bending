@@ -26,7 +26,7 @@ public class Handtracking : MonoBehaviour
 
       // TestControls();
         CreateElement();
-        leftHand.LookAt(2 * leftHand.position - leftHand.parent.position);
+
 
       if(heldElement != null){
 
@@ -71,7 +71,7 @@ public class Handtracking : MonoBehaviour
     public void HandMovementLogic()
     {
 
-      if(Vector3.Distance(lastposLeft, leftHand.position) >= distanceToCheckFor || Vector3.Distance(lastposRight, rightHand.position) >= distanceToCheckFor)
+      if(Vector3.Distance(lastposLeft, leftHand.position) >= distanceToCheckFor && Vector3.Distance(lastposRight, rightHand.position) <= Vector3.Distance(lastposLeft, leftHand.position))
       {
         //hand moved enough to not be hand shaking
 
@@ -103,22 +103,38 @@ public class Handtracking : MonoBehaviour
 
 
           if(handmovement != Vector3.zero)
-          {  Bend();}
+          {
+              leftHand.LookAt(2 * leftHand.position - rightHand.position);
+              lastKataAction = handmovement;
+             Bend();
+
+          }
           else
           {
+            leftHand.LookAt(2 * leftHand.position - leftHand.parent.position);
 
-            heldElement.GetComponent<Element>().currentStrength++;
 
           }
 
-          lastKataAction = handmovement;
+
+      }
+      else if( Vector3.Distance(lastposRight, rightHand.position) >= distanceToCheckFor)
+      {
+
+        lastposLeft = leftHand.position;
+          lastposRight = rightHand.position;
+            leftHand.LookAt( rightHand.position );
+          // leftHand.LookAt(2 * leftHand.position - leftHand.parent.position);
+        heldElement.GetComponent<Element>().currentStrength++;
       }
       else
       {
 
           if(stationarycount == 0)
-          {stationarycount++;
-            Bend();
+          {
+            timer = timeIncrement * 0.5f;
+            stationarycount++;
+            // Bend();
           }else{
 
 
@@ -204,19 +220,22 @@ public class Handtracking : MonoBehaviour
       }
       else if(lastKataAction == new Vector3(0,-1,0))
       {
-
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("up");
       }
       else if(lastKataAction == new Vector3(0,1,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("down");
       }
       else if(lastKataAction == new Vector3(-1,0,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("left-right");
       }
       else if(lastKataAction == new Vector3(1,0,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("right-left");
       }
       else if(lastKataAction == new Vector3(0,-1,-1))

@@ -74,15 +74,15 @@ public class Bending : MonoBehaviour
             if(midbending == true)
             {//small flamethrower
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 0.2f;
+                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
                   element.currentStrength++;
               }else
               {
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 0.2f;
-                clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength,ForceMode.Impulse);
+                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+                clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
               }
         break;
         case 3://Water
@@ -90,16 +90,18 @@ public class Bending : MonoBehaviour
             {//water ball that adds to itself
                       if(currentWaterBall == null)
                       {
-                        currentWaterBall = Instantiate(waterBall,hand.position,hand.rotation) as GameObject;
-                          currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
+                        // currentWaterBall = Instantiate(waterBall,hand.position,hand.rotation) as GameObject;
+                        //   currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                       }
                       else
                       {
+
                           currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
-                        GameObject clonewater = Instantiate(waterBall,currentWaterBall.transform.position + (currentWaterBall.transform.position - hand.position),hand.rotation) as GameObject;
-                        clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
-                        clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.5f);
-                        clonewater.GetComponent<DieInTime>().lifetime = 5;
+                          currentWaterBall.GetComponent<Rigidbody>().AddForce((hand.position - currentWaterBall.transform.position) * Time.deltaTime,ForceMode.Impulse);
+                        // GameObject clonewater = Instantiate(waterBall,currentWaterBall.transform.position + (currentWaterBall.transform.position - hand.position),hand.rotation) as GameObject;
+                        // clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
+                        // clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.5f);
+                        // clonewater.GetComponent<DieInTime>().lifetime = 5;
                         // clonewater.transform.parent = currentWaterBall.transform;
                       }
 
@@ -109,8 +111,9 @@ public class Bending : MonoBehaviour
               {
                     if(currentWaterBall != null)
                     {
+                      currentWaterBall.GetComponent<Collider>().enabled = true;
                       currentWaterBall.GetComponent<Rigidbody>().useGravity = true;
-                      currentWaterBall.GetComponent<Rigidbody>().AddForce(currentWaterBall.transform.forward * element.currentStrength,ForceMode.Impulse);
+                      currentWaterBall.GetComponent<Rigidbody>().AddForce(hand.forward * element.currentStrength,ForceMode.Impulse);
                       currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                       currentWaterBall = null;
                     }
@@ -149,7 +152,7 @@ public class Bending : MonoBehaviour
                 lastSpawnedAir = Instantiate(windobj,hand.position,hand.rotation) as GameObject;
                 // clone.transform.LookAt(hand.position);
                 lastSpawnedAir.GetComponent<DieInTime>().lifetime = 0.2f;
-                  lastSpawnedAir.GetComponent<Element>().currentStrength = element.currentStrength;
+                  lastSpawnedAir.GetComponent<Element>().currentStrength = -element.currentStrength;
               }
 
           }
@@ -171,14 +174,14 @@ public class Bending : MonoBehaviour
             if(midbending == true)
             {//small flamethrower
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 0.2f;
+                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
                   element.currentStrength++;
               }else
               {
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 0.2f;
+                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
                 clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
               }
         break;
@@ -197,7 +200,10 @@ public class Bending : MonoBehaviour
                         clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
                         clonewater.GetComponent<DieInTime>().lifetime = 10.0f;
                         clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.2f);
-                        clonewater.transform.parent = currentWaterBall.transform;
+                        // clonewater.transform.parent = currentWaterBall.transform;
+
+                          clonewater.GetComponent<Rigidbody>().useGravity = true;
+                          clonewater.GetComponent<Collider>().enabled = true;
                       }
 
                       lastaction = 2;
@@ -207,7 +213,7 @@ public class Bending : MonoBehaviour
                     if(currentWaterBall != null)
                     {
                       currentWaterBall.GetComponent<Rigidbody>().useGravity = true;
-                      currentWaterBall.GetComponent<Rigidbody>().AddForce(currentWaterBall.transform.forward * element.currentStrength,ForceMode.Impulse);
+                      currentWaterBall.GetComponent<Rigidbody>().AddForce(hand.forward * element.currentStrength,ForceMode.Impulse);
                       currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                     }else
                     {
