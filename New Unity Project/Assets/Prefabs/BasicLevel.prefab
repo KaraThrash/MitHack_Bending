@@ -495,12 +495,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1549142168008720647, guid: 43b313d8155afe142afecabbdc7273b5,
+    - target: {fileID: 1549142169214218857, guid: 43b313d8155afe142afecabbdc7273b5,
         type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 3453168299201182774}
-    - target: {fileID: 1549142169214218857, guid: 43b313d8155afe142afecabbdc7273b5,
+    - target: {fileID: 1549142168008720647, guid: 43b313d8155afe142afecabbdc7273b5,
         type: 3}
       propertyPath: character
       value: 
@@ -598,7 +598,12 @@ PrefabInstance:
     - target: {fileID: 7152653923618959646, guid: 5067236469fc93a45a8d83bf9257ef6f,
         type: 3}
       propertyPath: m_Name
-      value: HandCube (1)
+      value: HandCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 7152653923618959646, guid: 5067236469fc93a45a8d83bf9257ef6f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5408233710740969429, guid: 5067236469fc93a45a8d83bf9257ef6f,
         type: 3}
@@ -656,6 +661,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7593328856340617491, guid: 5067236469fc93a45a8d83bf9257ef6f,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3453168299201182774}
+    - target: {fileID: 2739143535663706808, guid: 5067236469fc93a45a8d83bf9257ef6f,
         type: 3}
       propertyPath: character
       value: 
@@ -735,12 +745,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4098249410875898783, guid: 081784445c54571448525c0f46791f02,
+    - target: {fileID: 4098249411895675332, guid: 081784445c54571448525c0f46791f02,
         type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 3453168299201182774}
-    - target: {fileID: 4098249411895675332, guid: 081784445c54571448525c0f46791f02,
+    - target: {fileID: 4098249410875898783, guid: 081784445c54571448525c0f46791f02,
         type: 3}
       propertyPath: character
       value: 
@@ -1053,6 +1063,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4098249411895675332, guid: 081784445c54571448525c0f46791f02,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3453168299201182774}
+    - target: {fileID: 4098249410875898783, guid: 081784445c54571448525c0f46791f02,
+        type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3453168299201182774}
     - target: {fileID: 450898215916504041, guid: 081784445c54571448525c0f46791f02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1068,16 +1088,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.244
       objectReference: {fileID: 0}
-    - target: {fileID: 4098249410875898783, guid: 081784445c54571448525c0f46791f02,
-        type: 3}
-      propertyPath: character
-      value: 
-      objectReference: {fileID: 3453168299201182774}
-    - target: {fileID: 4098249411895675332, guid: 081784445c54571448525c0f46791f02,
-        type: 3}
-      propertyPath: character
-      value: 
-      objectReference: {fileID: 3453168299201182774}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 081784445c54571448525c0f46791f02, type: 3}
 --- !u!4 &6815756324376219584 stripped
@@ -1153,12 +1163,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1549142168008720647, guid: 43b313d8155afe142afecabbdc7273b5,
+    - target: {fileID: 1549142169214218857, guid: 43b313d8155afe142afecabbdc7273b5,
         type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 3453168299201182774}
-    - target: {fileID: 1549142169214218857, guid: 43b313d8155afe142afecabbdc7273b5,
+    - target: {fileID: 1549142168008720647, guid: 43b313d8155afe142afecabbdc7273b5,
         type: 3}
       propertyPath: character
       value: 

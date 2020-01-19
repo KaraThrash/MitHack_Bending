@@ -39,7 +39,7 @@ public class ResponsiveObject : MonoBehaviour
             float delta = Time.time - startSizeChange;
             float newScale = Mathf.Lerp(origHeight, origHeight * targetScale, delta);
             transform.localScale = new Vector3(transform.localScale.x, newScale, transform.localScale.z);
-            float newPos = Mathf.Lerp(origPos.y, origPos.y * (0.75f*targetScale), delta);
+            float newPos = Mathf.Lerp(origPos.y, origPos.y * (0.5f*targetScale), delta);
             transform.position = new Vector3(origPos.x, newPos, origPos.z);
         }
     }
@@ -51,6 +51,7 @@ public class ResponsiveObject : MonoBehaviour
 
         if (IsElement(incoming)) {
             lastActiveElement = getElementType(incoming);
+            Debug.Log("element " + lastActiveElement);
             switch (getElementType(incoming)) {
                 case 2: //fire
                     if (flammable) Burn();
@@ -102,7 +103,8 @@ public class ResponsiveObject : MonoBehaviour
 
     private int getElementType(GameObject gobj) {
         //return tempElem;
-        return 0;
+        ///return 0;
+        return gobj.GetComponent<FlameControl>().elementType;
         //return gameObject.GetComponent<Element>().elementType;
     }
 

@@ -9,6 +9,7 @@ public class FlameControl : MonoBehaviour
     public float distance = 5f;
     public GameObject character;
     public float thrust;
+    public int elementType;
 
     public GameObject flameEffect;
 
@@ -37,6 +38,7 @@ public class FlameControl : MonoBehaviour
     void Update()
     {
         Vector3 camDir = character.GetComponent<Camera>().transform.forward;
+        Debug.Log(camDir);
         if (Input.GetMouseButtonDown(1))
         {
             print("space key was pressed");

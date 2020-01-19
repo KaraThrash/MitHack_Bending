@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Level0 : MonoBehaviour
 {
+    //0=air, 1=earth, 2=fire, 3=water
     public LevelManager levelManager;
     private bool levelOver = false;
 
