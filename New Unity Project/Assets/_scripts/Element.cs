@@ -32,8 +32,10 @@ public class Element : MonoBehaviour
 
       }
       else{
+
         GetComponent<Rigidbody>().useGravity = myGravity;
         currentlyHeld = false;
+
       }
 
     }
@@ -42,13 +44,14 @@ public class Element : MonoBehaviour
       if(Vector3.Distance(targetpos.position , transform.position) > 0.5f)
       {
 
-      transform.position = Vector3.MoveTowards(transform.position, targetpos.position, movespeed  * 5 * Time.deltaTime);
+      transform.position = Vector3.MoveTowards(transform.position, targetpos.position, movespeed  * 2 * Time.deltaTime);
+      GetComponent<Rigidbody>().drag = 1.0f;
       }
         else
         {
 
-          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed  * Time.deltaTime);
-
+          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed  * 5 * Time.deltaTime);
+          GetComponent<Rigidbody>().drag = 0;
         }
 
 
@@ -60,18 +63,25 @@ public class Element : MonoBehaviour
       myGravity = GetComponent<Rigidbody>().useGravity;
       GetComponent<Rigidbody>().useGravity = false;
     }
-    // public void OnTriggerStay(Collider col)
-    // {
-    //         if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
-    //         {
-    //           if(primary == true)
-    //           {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength * 10;}
-    //             else
-    //             {col.GetComponent<Rigidbody>().AddForce((col.transform.position - transform.position).normalized * currentStrength * 10 * Time.deltaTime,ForceMode.Impulse );}
-    //
-    //
-    //         }
-    // }
+    public void LetGo()
+    {
+      currentlyHeld = false;
+      targetpos = null;
+      if(GetComponent<Collider>() != null)
+      {GetComponent<Collider>().enabled = true;}
+      GetComponent<Rigidbody>().useGravity = myGravity;
+    }
+    public void OnTriggerStay(Collider col)
+    {
+            if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
+            {
+              if(primary == true)
+              {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength ;}
+
+
+
+            }
+    }
     public void OnTriggerEnter(Collider col)
     {
       if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
@@ -83,10 +93,12 @@ public class Element : MonoBehaviour
 
 
       }
-            if(currentStrength >= 0 && elementType == 2 )//fire
+            if(currentStrength > 0 && elementType == 2 )//fire
             {
               if( col.GetComponent<Element>() == null && col.transform.Find("OnFireObj") == null)
               {
+                  if(col.GetComponent<Renderer>() != null )
+                  {  col.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;}
 
                       GameObject clone = Instantiate(this.gameObject,col.transform.position  ,Quaternion.identity ) as GameObject;
                       // clone.transform.localScale = clone.transform.localScale * 4;
@@ -96,7 +108,7 @@ public class Element : MonoBehaviour
                       clone.transform.parent = col.transform;
 
                     currentStrength--;
-                    if(currentStrength <= 0){ Destroy(this.gameObject);}
+                    if(currentStrength < 0){ Destroy(this.gameObject);}
               }
             }
     }

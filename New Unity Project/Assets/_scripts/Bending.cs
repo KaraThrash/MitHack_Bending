@@ -101,14 +101,7 @@ public class Bending : MonoBehaviour
                       else
                       {
 
-                          currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
-                          currentWaterBall.GetComponent<Rigidbody>().AddForce((hand.position - currentWaterBall.transform.position) * Time.deltaTime,ForceMode.Impulse);
-
-                        // GameObject clonewater = Instantiate(waterBall,currentWaterBall.transform.position + (currentWaterBall.transform.position - hand.position),hand.rotation) as GameObject;
-                        // clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
-                        // clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.5f);
-                        // clonewater.GetComponent<DieInTime>().lifetime = 5;
-                        // clonewater.transform.parent = currentWaterBall.transform;
+                        currentWaterBall.transform.position += hand.forward;
                       }
 
                       lastaction = 2;
@@ -120,6 +113,7 @@ public class Bending : MonoBehaviour
                       currentWaterBall.GetComponent<Collider>().enabled = true;
                       currentWaterBall.GetComponent<Rigidbody>().useGravity = true;
                       currentWaterBall.GetComponent<Rigidbody>().AddForce(hand.forward * element.currentStrength,ForceMode.Impulse);
+                      currentWaterBall.GetComponent<Element>().LetGo();
                       currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                       currentWaterBall = null;
                     }
@@ -190,6 +184,7 @@ public class Bending : MonoBehaviour
               {
                 //put out all fire in range
                 fireManager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength,hand.forward );
+
               }
         break;
         case 3://Water
@@ -202,14 +197,14 @@ public class Bending : MonoBehaviour
                       }
                       else
                       {
-                          currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
+                          // currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                         GameObject clonewater = Instantiate(waterBall,hand.position + Vector3.up,hand.rotation) as GameObject;
                         clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
                         clonewater.GetComponent<DieInTime>().lifetime = 10.0f;
                         clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.2f);
                         // clonewater.transform.parent = currentWaterBall.transform;
 
-                          clonewater.GetComponent<Rigidbody>().useGravity = false;
+                          clonewater.GetComponent<Rigidbody>().useGravity = true;
                           clonewater.GetComponent<Collider>().enabled = true;
                       }
 
@@ -247,7 +242,7 @@ public class Bending : MonoBehaviour
         if(midbending == false) //directional gust
         {
           GameObject clone = Instantiate(windobj,player.position,hand.rotation) as GameObject;
-          clone.GetComponent<DieInTime>().lifetime = 0.5f;
+          clone.GetComponent<DieInTime>().lifetime = 1.5f;
          clone.transform.localScale = new Vector3(Mathf.Clamp(clone.transform.localScale.x +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.y +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.z * element.currentStrength * 0.5f,5,20));
           clone.GetComponent<Element>().currentStrength = element.currentStrength;
           clone.transform.LookAt(clone.transform.position + Vector3.up);
@@ -296,7 +291,7 @@ public class Bending : MonoBehaviour
 
             }else
             {
-
+              fireManager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength );
             }
       break;
       default:
@@ -305,5 +300,57 @@ public class Bending : MonoBehaviour
   // }
   elementchargetext.text = element.currentStrength.ToString();
 }
+public void UpDown(bool midbending,Transform hand,Element element)
+{
+  // if(cooldowntimer <= 0){
+  // cooldowntimer = bendcooldown;
+  switch (element.elementType)
+  {
+    case 0://air
+      if(midbending == false) //directional gust
+      {
 
+      }
+      else //small directional wind
+      {
+
+
+      }
+    break;
+    case 1://earth
+
+        if(midbending == true)
+        {
+
+        }else
+        {
+
+        }
+
+
+    break;
+    case 2://fire
+        if(midbending == true)
+        {
+
+          }else
+          {
+            fireManager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength );
+          }
+    break;
+    case 3://Water
+        if(midbending == true)
+        {//water ball that adds to itself
+
+          }else
+          {
+            fireManager.GetAllInRangeAndPull(hand,element.currentStrength,-element.currentStrength );
+          }
+    break;
+    default:
+    break;
+  }
+// }
+elementchargetext.text = element.currentStrength.ToString();
+}
 }

@@ -37,7 +37,15 @@ public class ElementManager : MonoBehaviour
       foreach(GameObject go in elements)
       {
         if(go != null && go.GetComponent<Rigidbody>() != null && Vector3.Distance(go.transform.position,playerPos.position) < range)
-        {go.GetComponent<Rigidbody>().AddForce((playerPos.position - go.transform.position) * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+        {
+
+          if(elementType == 1)//earth
+          {go.GetComponent<Rigidbody>().AddForce((playerPos.position - go.transform.position) * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+          if(elementType == 2)//water
+          {Destroy(go);}
+          if(elementType == 3)//earth
+          {go.GetComponent<Rigidbody>().AddForce((playerPos.position - go.transform.position) * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+        }
 
       }
 
@@ -51,9 +59,10 @@ public class ElementManager : MonoBehaviour
         {
           if(elementType == 1)//earth
           {go.GetComponent<Rigidbody>().AddForce(dir * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
-          if(elementType == 3)//fire
+          if(elementType == 2)//water
           {Destroy(go);}
-
+          if(elementType == 3)//earth
+          {go.GetComponent<Rigidbody>().AddForce(dir * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
         }
 
       }
