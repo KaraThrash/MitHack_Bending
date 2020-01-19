@@ -162,10 +162,10 @@ public class Bending : MonoBehaviour
             if(midbending == true)
             {
               element.currentStrength ++;
-              earthmanager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength);
+              earthmanager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength,hand.forward);
             }else
             {
-              earthmanager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength * 2);
+              earthmanager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength,hand.forward );
             }
             lastaction = 1;
 
@@ -196,13 +196,13 @@ public class Bending : MonoBehaviour
                       else
                       {
                           currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
-                        GameObject clonewater = Instantiate(waterBall,currentWaterBall.transform.position + (currentWaterBall.transform.position - hand.position),hand.rotation) as GameObject;
+                        GameObject clonewater = Instantiate(waterBall,hand.position + Vector3.up,hand.rotation) as GameObject;
                         clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
                         clonewater.GetComponent<DieInTime>().lifetime = 10.0f;
                         clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.2f);
                         // clonewater.transform.parent = currentWaterBall.transform;
 
-                          clonewater.GetComponent<Rigidbody>().useGravity = true;
+                          clonewater.GetComponent<Rigidbody>().useGravity = false;
                           clonewater.GetComponent<Collider>().enabled = true;
                       }
 

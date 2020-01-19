@@ -40,7 +40,7 @@ public class Element : MonoBehaviour
     public void Move()
     {
       if(elementType == 3)
-      {GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position).normalized * movespeed * 50 *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime);}
+      {GetComponent<Rigidbody>().AddForce(targetpos.position - transform.position * movespeed * 5 *  Time.deltaTime);}
         else
         {GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position).normalized * movespeed *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime);}
 
@@ -69,7 +69,7 @@ public class Element : MonoBehaviour
     {
             if(currentStrength >= 0 && elementType == 2 )//fire
             {
-              if( col.GetComponent<Element>() == null && col.transform.Find("OnFireObj") == null)
+              if( col.GetComponent<Element>() == null )//&& col.transform.Find("OnFireObj") == null)
               {
 
                       GameObject clone = Instantiate(this.gameObject,col.transform.position  ,Quaternion.identity ) as GameObject;
