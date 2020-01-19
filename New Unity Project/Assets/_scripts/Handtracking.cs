@@ -4,9 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Handtracking : MonoBehaviour
 {
+  public Bending bending;
   public int element,stationarycount,maxstationarycount; //air,earth,fire,water
   public Transform leftHand,rightHand,elementManagers;
-  public Vector3 lastposLeft,lastposRight;
+  public Vector3 lastposLeft,lastposRight,lastKataAction;
   public List<GameObject> elements,heldElements;//air,earth,fire,water
   public List<Vector3> handMovements;//if the hand keeps moving continue to construct a more complex move
   public GameObject heldElement;
@@ -22,12 +23,16 @@ public class Handtracking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
       // TestControls();
         CreateElement();
+        leftHand.LookAt(2 * leftHand.position - leftHand.parent.position);
+
       if(heldElement != null){
 
           heldElement.transform.position = Vector3.MoveTowards(heldElement.transform.position, leftHand.transform.position, elementspeed * Time.deltaTime);
           timer -= Time.deltaTime;
+
           if(timer <= 0)
           {
             timer = timeIncrement;
@@ -65,47 +70,203 @@ public class Handtracking : MonoBehaviour
     }
     public void HandMovementLogic()
     {
-      if(Vector3.Distance(lastposLeft, leftHand.position) >= distanceToCheckFor)
+
+      if(Vector3.Distance(lastposLeft, leftHand.position) >= distanceToCheckFor || Vector3.Distance(lastposRight, rightHand.position) >= distanceToCheckFor)
       {
         //hand moved enough to not be hand shaking
 
 
         //check left or right movement
         string tempstring = "";
-        if(Mathf.Abs(lastposLeft.x - leftHand.position.x) >= distanceToCheckFor){Debug.Log("X");tempstring += "x";}
+        Vector3 handmovement = new Vector3(0,0,0);
+        if(Mathf.Abs(lastposLeft.x - leftHand.position.x) >= distanceToCheckFor){
+          Debug.Log("X");tempstring += "x";
+          handmovement = new Vector3(Mathf.Sign(lastposLeft.x - leftHand.position.x),0,0);
+        }
         //check verticalmovement
-          if(Mathf.Abs(lastposLeft.y - leftHand.position.y) >= distanceToCheckFor){Debug.Log("Y");tempstring += "y";}
+          if(Mathf.Abs(lastposLeft.y - leftHand.position.y) >= distanceToCheckFor){
+            handmovement = new Vector3(0,Mathf.Sign(lastposLeft.y - leftHand.position.y),0);
+            Debug.Log("Y");
+            tempstring += "y";
+          }
           //check forward back movement
-            if(Mathf.Abs(lastposLeft.z - leftHand.position.z) >= distanceToCheckFor){Debug.Log("Z");tempstring += "z";}
-            lastposLeft = leftHand.transform.position;
-            debugMovementDisplay2.text = tempstring;
+            if(Mathf.Abs(lastposLeft.z - leftHand.position.z) >= distanceToCheckFor){
+                handmovement = new Vector3(0,0,Mathf.Sign(lastposLeft.z - leftHand.position.z));
+              Debug.Log("Z");tempstring += "z";
+            }
+
+
+            lastposLeft = leftHand.position;
+              lastposRight = rightHand.position;
+            debugMovementDisplay2.text = tempstring + (handmovement.ToString());
             stationarycount = 0;
-            GameObject clone = Instantiate(elements[element],leftHand.position,leftHand.rotation) as GameObject;
-            clone.GetComponent<DieInTime>().lifetime = 10.0f;
-            clone.GetComponent<Rigidbody>().useGravity = true;
-            clone.GetComponent<Element>().currentlyHeld = false;
-          clone.GetComponent<Collider>().enabled = true;
+
+
+          if(handmovement != Vector3.zero)
+          {  Bend();}
+          else
+          {
+
+            heldElement.GetComponent<Element>().currentStrength++;
+
+          }
+
+          lastKataAction = handmovement;
       }
       else
       {
-        //hand moved very little, or is just minor hand tremors that we want to normalize for
-        stationarycount++;
-        //can only hold still for a limited time, moving arms resets it
-        if(stationarycount > maxstationarycount){
-            if(heldElement != null){
-                heldElement.GetComponent<DieInTime>().lifetime = 2.0f;
-                heldElement.GetComponent<Element>().currentlyHeld = false;
-              heldElement.GetComponent<Collider>().enabled = true;
-            }
 
-        }else{
-        lastposLeft = leftHand.transform.position;
-        Debug.Log("NONE");
-        debugMovementDisplay2.text = "None";
-        elementManagers.GetChild(element).GetComponent<ElementManager>().GetClosestElement(leftHand);
-        }
+          if(stationarycount == 0)
+          {stationarycount++;
+            Bend();
+          }else{
+
+
+              FinishBend();
+
+          }
+          lastposLeft = leftHand.position;
+          lastposRight = rightHand.position;
       }
 
+    }
+
+
+      public void Bend()
+      {
+          // if(lastKataAction == Vector3.zero){return;}
+          if(lastKataAction == new Vector3(0,0,-1))
+          {
+            bending.Push(true,leftHand,heldElement.GetComponent<Element>());
+            Debug.Log("push");
+          }
+          else if(lastKataAction == new Vector3(0,0,1))
+          {
+              bending.Pull(true,leftHand,heldElement.GetComponent<Element>());
+            Debug.Log("pull");
+          }
+          else if(lastKataAction == new Vector3(0,-1,0))
+          {
+            Debug.Log("up");
+          }
+          else if(lastKataAction == new Vector3(0,1,0))
+          {
+            Debug.Log("down");
+          }
+          else if(lastKataAction == new Vector3(-1,0,0))
+          {
+            Debug.Log("left-right");
+          }
+          else if(lastKataAction == new Vector3(1,0,0))
+          {
+            Debug.Log("right-left");
+          }
+          else if(lastKataAction == new Vector3(0,-1,-1))
+          {
+            Debug.Log("up forward");
+          }
+          else if(lastKataAction == new Vector3(0,1,-1))
+          {
+            Debug.Log("down forward");
+          }
+          else if(lastKataAction == new Vector3(-1,-1,0))
+          {
+            Debug.Log("right up");
+          }
+          else if(lastKataAction == new Vector3(1,-1,0))
+          {
+            Debug.Log("leftup");
+          }
+          else if(lastKataAction == new Vector3(-1,1,0))
+          {
+            Debug.Log("right down");
+          }
+          else if(lastKataAction == new Vector3(1,1,0))
+          {
+            Debug.Log("leftdown");
+          }
+          else
+          {}
+            // lastKataAction = Vector3.zero;
+    }
+    public void FinishBend()
+    {
+      // if(lastKataAction == Vector3.zero){return;}
+      if(lastKataAction == new Vector3(0,0,-1))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("push");
+      }
+      else if(lastKataAction == new Vector3(0,0,1))
+      {
+          bending.Pull(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("pull");
+      }
+      else if(lastKataAction == new Vector3(0,-1,0))
+      {
+
+        Debug.Log("up");
+      }
+      else if(lastKataAction == new Vector3(0,1,0))
+      {
+        Debug.Log("down");
+      }
+      else if(lastKataAction == new Vector3(-1,0,0))
+      {
+        Debug.Log("left-right");
+      }
+      else if(lastKataAction == new Vector3(1,0,0))
+      {
+        Debug.Log("right-left");
+      }
+      else if(lastKataAction == new Vector3(0,-1,-1))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("up forward");
+      }
+      else if(lastKataAction == new Vector3(0,1,-1))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("down forward");
+      }
+      else if(lastKataAction == new Vector3(-1,-1,0))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("right up");
+      }
+      else if(lastKataAction == new Vector3(1,-1,0))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("leftup");
+      }
+      else if(lastKataAction == new Vector3(-1,1,0))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("right down");
+      }
+      else if(lastKataAction == new Vector3(1,1,0))
+      {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        Debug.Log("leftdown");
+      }
+      else
+      {}
+        lastKataAction = Vector3.zero;
+          if(heldElement.GetComponent<Collider>() != null)
+          {
+            heldElement.GetComponent<Collider>().enabled = true;
+          }
+
+        if(heldElement != null){
+          if(heldElement.GetComponent<DieInTime>() != null ){
+
+            if( heldElement.GetComponent<DieInTime>().lifetime == -1){
+
+              heldElement.GetComponent<DieInTime>().lifetime = 0.1f;
+            }
+          }else{  Destroy(heldElement);}
+
+        }
     }
     public void SetElement(int newElement)
     {
@@ -116,6 +277,7 @@ public class Handtracking : MonoBehaviour
         heldElement.GetComponent<Element>().Grab(leftHand);
     heldElement.GetComponent<Collider>().enabled = false;
       lastposLeft = leftHand.transform.position;
+      timer = timeIncrement;
       // heldElement.transform.parent = leftHand;
 
     }
