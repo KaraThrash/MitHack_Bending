@@ -171,12 +171,7 @@ public class Bending : MonoBehaviour
         case 2://fire
             if(midbending == true)
             {//small flamethrower
-                GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
-                clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
-                // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
-                lastaction = 2;
-                clonefire.GetComponent<Collider>().enabled = true;
+                fireManager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength,hand.forward );
                   element.currentStrength++;
               }else
               {

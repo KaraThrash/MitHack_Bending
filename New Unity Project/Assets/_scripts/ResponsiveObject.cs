@@ -9,50 +9,74 @@ using UnityEngine;
 
 public class ResponsiveObject : MonoBehaviour
 {
-    public Vector3 bottomPoint;
+  public LevelManager levelmanager;
+    public Vector3 bottomPoint,growSize,startPosition;
     public GameObject splitObject;
     public Object flameEffect;
     public int tempElem = 2;
+    public int moveListenDistance = 1;
 
-    public bool flammable, lightable, growable, splitable;
+    public bool flammable, lightable, growable, splitable, movePuzzleObject;
 
     private bool onFire = false;
     private int lastActiveElement = -1;
 
     private float targetScale = 2;
-    private float growRate = 1;
-    private float origHeight;
+    private float growRate = 5;
+    private float origHeight,lifeTime;
     private Vector3 origPos;
 
-    private float startSizeChange = -1;
-
+    private float startSizeChange = 0;
+    public int listenForElementType;
     void Start()
     {
+      lifeTime = -1;
         origHeight = transform.localScale.y;
         origPos = transform.position;
+        growSize =   transform.localScale;
+        startPosition = transform.position;
     }
 
     void Update()
     {
-        if (startSizeChange > 0)
+        if (growable && startSizeChange != 0)
         {
+          if(transform.localScale.y < growSize.y)
+          {
             float delta = Time.time - startSizeChange;
             float newScale = Mathf.Lerp(origHeight, origHeight * targetScale, delta);
-            transform.localScale = new Vector3(transform.localScale.x, newScale, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x+ (1 * Time.deltaTime), transform.localScale.y + (growRate * Time.deltaTime), transform.localScale.z+ (1 * Time.deltaTime));
             float newPos = Mathf.Lerp(origPos.y, origPos.y + 0.5f*targetScale , delta);
             transform.position = new Vector3(origPos.x, newPos, origPos.z);
+          }else
+          {
+            growable = false;
+            levelmanager.LevelObjectChanged(this.gameObject,false,false,true);
+          }
+
+        }
+        if(movePuzzleObject == true && moveListenDistance < Vector3.Distance(startPosition, transform.position))
+        {
+          levelmanager.LevelObjectChanged(this.gameObject,false,true,false);
+        }
+        if(lifeTime != -1)
+        {
+          lifeTime -= Time.deltaTime;
+          if(lifeTime <= 0)
+          {BurnDown();}
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject incoming = collision.gameObject;
-        Debug.Log(incoming.name + " hit " + gameObject.name);
+        // GameObject incoming = collision.gameObject;
+        // Debug.Log(incoming.name + " hit " + gameObject.name);
 
-        if (IsElement(incoming)) {
-            lastActiveElement = getElementType(incoming);
-            Debug.Log("element " + lastActiveElement);
-            switch (getElementType(incoming)) {
+
+        if(collision.transform.GetComponent<Element>() != null)
+        {
+
+            switch (collision.transform.GetComponent<Element>().elementType) {
                 case 2: //fire
                     if (flammable) Burn();
                     else if (lightable) SetFire();
@@ -65,13 +89,77 @@ public class ResponsiveObject : MonoBehaviour
                     break;
                 case 1: //earth
                     break;
-            }
-        }
-    }
 
+          }
+        }
+        // if (IsElement(incoming)) {
+        //     lastActiveElement = getElementType(incoming);
+        //     Debug.Log("element " + lastActiveElement);
+        //     switch (getElementType(incoming)) {
+        //         case 2: //fire
+        //             if (flammable) Burn();
+        //             else if (lightable) SetFire();
+        //             break;
+        //         case 3: //water
+        //             if (growable) Grow();
+        //             break;
+        //         case 0: //air
+        //             if (splitable) Split();
+        //             break;
+        //         case 1: //earth
+        //             break;
+        //     }
+        // }
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        GameObject incoming = collision.gameObject;
+        Debug.Log(incoming.name + " hit " + gameObject.name);
+
+
+        if(collision.transform.GetComponent<Element>() != null)
+        {
+
+            switch (collision.transform.GetComponent<Element>().elementType) {
+                case 2: //fire
+                    if (flammable) Burn();
+                    else if (lightable) SetFire();
+                    break;
+                case 3: //water
+                    if (growable) Grow();
+                    break;
+                case 0: //air
+                    if (splitable) Split();
+                    break;
+                case 1: //earth
+                    break;
+
+          }
+        }
+        // if (IsElement(incoming)) {
+        //     lastActiveElement = getElementType(incoming);
+        //     Debug.Log("element " + lastActiveElement);
+        //     switch (getElementType(incoming)) {
+        //         case 2: //fire
+        //             if (flammable) Burn();
+        //             else if (lightable) SetFire();
+        //             break;
+        //         case 3: //water
+        //             if (growable) Grow();
+        //             break;
+        //         case 0: //air
+        //             if (splitable) Split();
+        //             break;
+        //         case 1: //earth
+        //             break;
+        //     }
+        // }
+    }
     private void Burn() {
         SetFire();
-        Destroy(gameObject, 2);
+        lifeTime = 2;
+        onFire = true;
+        // Destroy(gameObject, 2);
         //Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
         //Object flames = Instantiate(Resources.Load("ObjectFire"), transform.position, Quaternion.identity);
 
@@ -84,10 +172,20 @@ public class ResponsiveObject : MonoBehaviour
         Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
         onFire = true;
     }
+    public void BurnDown()
+    {
 
+        Destroy(this.gameObject);
+    }
     private void Grow() {
+      if(growSize != transform.localScale)
+      {
         targetScale = 2;
         startSizeChange = Time.time;
+        growSize = transform.localScale * 4;
+        // growable = false;
+      }
+
         return;
     }
 
