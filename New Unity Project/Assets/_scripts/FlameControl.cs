@@ -38,6 +38,10 @@ public class FlameControl : MonoBehaviour
     void Update()
     {
         Vector3 camDir = character.GetComponent<Camera>().transform.forward;
+        if (Input.GetMouseButtonDown(0))
+        {
+            launched = false;
+        }
         if (Input.GetMouseButtonDown(1))
         {
             print("space key was pressed");
@@ -45,7 +49,8 @@ public class FlameControl : MonoBehaviour
             launched = true;
         }
         else if (!launched) {
-                transform.position = character.transform.position + camDir * distance;
+            transform.position = character.transform.position + camDir * distance;
+
         }
     }
 
