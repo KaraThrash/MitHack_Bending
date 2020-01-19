@@ -204,6 +204,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dda2e86ba2eef34aba97e7abda56a05, type: 3}
+--- !u!1 &6903256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 5dda2e86ba2eef34aba97e7abda56a05,
+    type: 3}
+  m_PrefabInstance: {fileID: 6903255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6903257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6903256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb8cf90f85495746843beefe7b40c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomPoint: {x: 0, y: 0, z: 0}
+  splitObject: {fileID: 0}
+  flameEffect: {fileID: 0}
+  flammable: 0
+  lightable: 1
+  growable: 0
+  splitable: 0
 --- !u!1001 &288489130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,36 +306,6 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4884471397977813450, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398199703848, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398587917045, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398874810767, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471399186947140, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471399291448296, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4884471399715371471, guid: bb36340b0ee06f0478e9eafcc8fc4995,
         type: 3}
       propertyPath: m_Mass
@@ -321,7 +316,37 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4884471398874810767, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471398587917045, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4884471400029616943, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471399291448296, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471397977813450, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471398199703848, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471399186947140, guid: bb36340b0ee06f0478e9eafcc8fc4995,
         type: 3}
       propertyPath: m_Mass
       value: 100
@@ -498,6 +523,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dda2e86ba2eef34aba97e7abda56a05, type: 3}
+--- !u!1 &647267391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 5dda2e86ba2eef34aba97e7abda56a05,
+    type: 3}
+  m_PrefabInstance: {fileID: 647267390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &647267392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647267391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb8cf90f85495746843beefe7b40c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomPoint: {x: 0, y: 0, z: 0}
+  splitObject: {fileID: 0}
+  flameEffect: {fileID: 0}
+  flammable: 0
+  lightable: 1
+  growable: 0
+  splitable: 0
 --- !u!1 &1360702125
 GameObject:
   m_ObjectHideFlags: 0

@@ -197,36 +197,6 @@ PrefabInstance:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4884471397977813450, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398199703848, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398587917045, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471398874810767, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471399186947140, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4884471399291448296, guid: bb36340b0ee06f0478e9eafcc8fc4995,
-        type: 3}
-      propertyPath: m_Mass
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4884471399715371471, guid: bb36340b0ee06f0478e9eafcc8fc4995,
         type: 3}
       propertyPath: m_Mass
@@ -237,7 +207,37 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4884471398874810767, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471398587917045, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4884471400029616943, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471399291448296, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471397977813450, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471398199703848, guid: bb36340b0ee06f0478e9eafcc8fc4995,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4884471399186947140, guid: bb36340b0ee06f0478e9eafcc8fc4995,
         type: 3}
       propertyPath: m_Mass
       value: 100
@@ -350,6 +350,46 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: -2432090755550338912, guid: 7072f79c7d177814bbc5a22209bf82aa, type: 3}
+--- !u!114 &288489137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288489131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb8cf90f85495746843beefe7b40c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomPoint: {x: 0, y: 0, z: 0}
+  splitObject: {fileID: 0}
+  flameEffect: {fileID: 2424000522678795302, guid: 3f92bfd8a91be2b41afeed1da6cfb3f0,
+    type: 3}
+  flammable: 1
+  lightable: 0
+  growable: 0
+  splitable: 1
+--- !u!114 &288489138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288489132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb8cf90f85495746843beefe7b40c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bottomPoint: {x: 0, y: 0, z: 0}
+  splitObject: {fileID: 0}
+  flameEffect: {fileID: 2424000522678795302, guid: 3f92bfd8a91be2b41afeed1da6cfb3f0,
+    type: 3}
+  flammable: 1
+  lightable: 0
+  growable: 0
+  splitable: 1
 --- !u!1 &1289150369
 GameObject:
   m_ObjectHideFlags: 0
