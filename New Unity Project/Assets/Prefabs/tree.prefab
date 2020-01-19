@@ -150,7 +150,7 @@ MonoBehaviour:
   flammable: 1
   lightable: 0
   growable: 1
-  splitable: 0
+  splitable: 1
 --- !u!65 &8299909414384296450
 BoxCollider:
   m_ObjectHideFlags: 0
