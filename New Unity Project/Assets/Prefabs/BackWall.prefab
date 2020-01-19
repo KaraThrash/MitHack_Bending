@@ -897,11 +897,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3161994443680055911}
     m_Modifications:
-    - target: {fileID: 4512045704741698863, guid: 4341626add676a94bbcc69604b78a755,
-        type: 3}
-      propertyPath: m_Name
-      value: WallLight (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -915,7 +910,7 @@ PrefabInstance:
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.32250023
+      value: -0.226
       objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
@@ -967,6 +962,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.25000012
       objectReference: {fileID: 0}
+    - target: {fileID: 4512045704741698863, guid: 4341626add676a94bbcc69604b78a755,
+        type: 3}
+      propertyPath: m_Name
+      value: WallLight (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698862, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
       propertyPath: character
@@ -987,11 +987,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3161994443680055911}
     m_Modifications:
-    - target: {fileID: 4512045704741698863, guid: 4341626add676a94bbcc69604b78a755,
-        type: 3}
-      propertyPath: m_Name
-      value: WallLight (5)
-      objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1005,7 +1000,7 @@ PrefabInstance:
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7350001
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698834, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}
@@ -1056,6 +1051,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.25000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512045704741698863, guid: 4341626add676a94bbcc69604b78a755,
+        type: 3}
+      propertyPath: m_Name
+      value: WallLight (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4512045704741698862, guid: 4341626add676a94bbcc69604b78a755,
         type: 3}

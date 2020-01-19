@@ -51,12 +51,14 @@ public class FlameControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        return;
         Debug.Log("collision");
         if (activeElement.name == "Flame2")
         {
             Object flames = Instantiate(flameEffect, transform.position, Quaternion.identity);
             Destroy(flames, 2);
-            Destroy(other.gameObject, 2);
+            if (other.gameObject.tag == "flammable")
+                Destroy(other.gameObject, 2);
         }
     }
 }
