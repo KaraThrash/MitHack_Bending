@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Bending : MonoBehaviour
 {
+  public Transform player;
   public int elementBendState,lastaction;
-  public GameObject windobj,rock,earthshield,flameThrower,waterBall;
+  public GameObject windobj,rock,earthshield,flameThrower,fireEruption,waterBall;
     public GameObject currentWaterBall,lastSpawnedFire,lastSpawnedAir,lastSpawnedEarth;
   public float bendcooldown,cooldowntimer;
   public ElementManager airManager,earthmanager,fireManager,waterManager;
@@ -75,13 +76,17 @@ public class Bending : MonoBehaviour
             {//small flamethrower
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
                 clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+                clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
+                clonefire.GetComponent<Collider>().enabled = true;
                   element.currentStrength++;
               }else
               {
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
+                clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+                clonefire.GetComponent<Collider>().enabled = true;
                 clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
               }
         break;
@@ -98,6 +103,7 @@ public class Bending : MonoBehaviour
 
                           currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                           currentWaterBall.GetComponent<Rigidbody>().AddForce((hand.position - currentWaterBall.transform.position) * Time.deltaTime,ForceMode.Impulse);
+
                         // GameObject clonewater = Instantiate(waterBall,currentWaterBall.transform.position + (currentWaterBall.transform.position - hand.position),hand.rotation) as GameObject;
                         // clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
                         // clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.5f);
@@ -175,14 +181,15 @@ public class Bending : MonoBehaviour
             {//small flamethrower
                 GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
                 clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+                clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
                 // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
                 lastaction = 2;
+                clonefire.GetComponent<Collider>().enabled = true;
                   element.currentStrength++;
               }else
               {
-                GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
-                clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
-                clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
+                //put out all fire in range
+                fireManager.GetAllInRangeAndPull(hand,element.currentStrength,element.currentStrength,hand.forward );
               }
         break;
         case 3://Water
@@ -229,6 +236,74 @@ public class Bending : MonoBehaviour
     }
     elementchargetext.text = element.currentStrength.ToString();
   }
-    //back and left right/up down generates strength
+
+  public void DownUp(bool midbending,Transform hand,Element element)
+  {
+    // if(cooldowntimer <= 0){
+    // cooldowntimer = bendcooldown;
+    switch (element.elementType)
+    {
+      case 0://air
+        if(midbending == false) //directional gust
+        {
+          GameObject clone = Instantiate(windobj,player.position,hand.rotation) as GameObject;
+          clone.GetComponent<DieInTime>().lifetime = 0.5f;
+         clone.transform.localScale = new Vector3(Mathf.Clamp(clone.transform.localScale.x +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.y +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.z * element.currentStrength * 0.5f,5,20));
+          clone.GetComponent<Element>().currentStrength = element.currentStrength;
+          clone.transform.LookAt(clone.transform.position + Vector3.up);
+          lastaction = -1;
+            clone.GetComponent<Element>().primary = true;
+        }
+        else //small directional wind
+        {
+
+
+        }
+      break;
+      case 1://earth
+
+          if(midbending == true)
+          {
+
+          }else
+          {
+
+          }
+
+
+      break;
+      case 2://fire
+          if(midbending == true)
+          {//small flamethrower
+              GameObject clonefire = Instantiate(flameThrower,hand.position,hand.rotation) as GameObject;
+              clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+              clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
+              // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
+              lastaction = 2;
+                element.currentStrength++;
+            }else
+            {
+              GameObject clonefire = Instantiate(fireEruption,player.position,Quaternion.identity) as GameObject;
+              clonefire.GetComponent<DieInTime>().lifetime = 1.2f;
+              clonefire.GetComponent<Collider>().enabled = true;
+              clonefire.GetComponent<Element>().currentStrength = element.currentStrength;
+              // clonefire.GetComponent<Rigidbody>().AddForce(clonefire.transform.forward * element.currentStrength);
+            }
+      break;
+      case 3://Water
+          if(midbending == true)
+          {//water ball that adds to itself
+
+            }else
+            {
+
+            }
+      break;
+      default:
+      break;
+    }
+  // }
+  elementchargetext.text = element.currentStrength.ToString();
+}
 
 }

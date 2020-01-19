@@ -220,7 +220,7 @@ public class Handtracking : MonoBehaviour
       }
       else if(lastKataAction == new Vector3(0,-1,0))
       {
-        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
+        bending.DownUp(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("up");
       }
       else if(lastKataAction == new Vector3(0,1,0))
