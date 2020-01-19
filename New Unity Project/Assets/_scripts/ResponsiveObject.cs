@@ -39,7 +39,7 @@ public class ResponsiveObject : MonoBehaviour
             float delta = Time.time - startSizeChange;
             float newScale = Mathf.Lerp(origHeight, origHeight * targetScale, delta);
             transform.localScale = new Vector3(transform.localScale.x, newScale, transform.localScale.z);
-            float newPos = Mathf.Lerp(origPos.y, origPos.y * (0.5f*targetScale), delta);
+            float newPos = Mathf.Lerp(origPos.y, origPos.y + 0.5f*targetScale , delta);
             transform.position = new Vector3(origPos.x, newPos, origPos.z);
         }
     }

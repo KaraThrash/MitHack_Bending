@@ -38,7 +38,6 @@ public class FlameControl : MonoBehaviour
     void Update()
     {
         Vector3 camDir = character.GetComponent<Camera>().transform.forward;
-        Debug.Log(camDir);
         if (Input.GetMouseButtonDown(1))
         {
             print("space key was pressed");

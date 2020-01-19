@@ -21,9 +21,14 @@ public class Level2 : MonoBehaviour
     void Update()
     {
         if (levelOver) return;
-        Debug.Log(windmill1.GetComponent<ResponsiveObject>().LastActiveElement());
-        if (windmill1.GetComponent<ResponsiveObject>().LastActiveElement() == 0 && 
-                windmill2.GetComponent<ResponsiveObject>().LastActiveElement() == 0) {
+        //Debug.Log(windmill1.GetComponent<ResponsiveObject>().LastActiveElement());
+        bool lit1 = windmill1.GetComponent<ResponsiveObject>().LastActiveElement() == 0;
+        bool lit2 = windmill2.GetComponent<ResponsiveObject>().LastActiveElement() == 0;
+        if (lit1)
+            windmill1.GetComponent<Light>().intensity = 1;
+        if (lit2)
+            windmill2.GetComponent<Light>().intensity = 1;
+        if (lit1 && lit2) {
             levelOver = true;
             levelManager.OpenDoor();
         }

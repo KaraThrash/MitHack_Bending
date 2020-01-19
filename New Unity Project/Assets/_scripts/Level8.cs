@@ -12,7 +12,7 @@ public class Level8 : MonoBehaviour
     // order = 3124
     private int index;
     private GameObject[] order;
-    private Transform transform1, transform2, transform3, transform4;
+    private bool g1, g2, g3, g4;
 
     // Start is called before the first frame update
     void Start()
@@ -24,15 +24,14 @@ public class Level8 : MonoBehaviour
         tree4 = GameObject.Find("tree4");
 
         order = new GameObject[4];
-        order[0] = tree3;
-        order[1] = tree1;
-        order[2] = tree2;
+        order[0] = tree1;
+        order[1] = tree2;
+        order[2] = tree3;
         order[3] = tree4;
-
-        transform1 = tree1.transform;
-        transform2 = tree2.transform;
-        transform3 = tree3.transform;
-        transform4 = tree4.transform;
+    
+        foreach (GameObject t in order) {
+            t.GetComponent<ResponsiveObject>().growable = false;
+        }
 
         index = 0;
     }
@@ -44,6 +43,9 @@ public class Level8 : MonoBehaviour
         {
             return;
         }
+        order[index].GetComponent<ResponsiveObject>().growable = true;
+        Debug.Log(index);
+
         if (order[index].GetComponent<ResponsiveObject>().LastActiveElement() == 3)
         {
             Debug.Log(index);
@@ -57,20 +59,6 @@ public class Level8 : MonoBehaviour
             levelManager.OpenDoor();
             levelOver = true;
         }
-            
-    }
-
-    void ResetLevel() {
-        // play fail sound
-        ResetTree(tree1, transform1);
-        ResetTree(tree2, transform2);
-        ResetTree(tree3, transform3);
-        ResetTree(tree4, transform4);
-    }
-
-    void ResetTree(GameObject tree, Transform t) {
-        tree.transform.position = new Vector3(t.position.x, t.position.y, t.position.z);
-        tree.transform.localScale = new Vector3(t.localScale.x, t.localScale.y, t.localScale.z);
     }
 }
 
