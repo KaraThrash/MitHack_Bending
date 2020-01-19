@@ -204,7 +204,7 @@ public class Bending : MonoBehaviour
                         clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.2f);
                         // clonewater.transform.parent = currentWaterBall.transform;
 
-                          clonewater.GetComponent<Rigidbody>().useGravity = true;
+                          // clonewater.GetComponent<Rigidbody>().useGravity = true;
                           clonewater.GetComponent<Collider>().enabled = true;
                       }
 
@@ -241,9 +241,9 @@ public class Bending : MonoBehaviour
       case 0://air
         if(midbending == false) //directional gust
         {
-          GameObject clone = Instantiate(windobj,player.position,hand.rotation) as GameObject;
+          GameObject clone = Instantiate(windobj,player.position - Vector3.up,hand.rotation) as GameObject;
           clone.GetComponent<DieInTime>().lifetime = 1.5f;
-         clone.transform.localScale = new Vector3(Mathf.Clamp(clone.transform.localScale.x +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.y +(0.5f * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.z * element.currentStrength * 0.5f,5,20));
+         clone.transform.localScale = new Vector3(Mathf.Clamp(clone.transform.localScale.x +(2 * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.y +(2 * element.currentStrength),3,30),Mathf.Clamp(clone.transform.localScale.z * element.currentStrength * 0.5f,5,20));
           clone.GetComponent<Element>().currentStrength = element.currentStrength;
           clone.transform.LookAt(clone.transform.position + Vector3.up);
           lastaction = -1;

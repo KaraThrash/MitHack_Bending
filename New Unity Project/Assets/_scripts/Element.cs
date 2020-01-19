@@ -60,6 +60,8 @@ public class Element : MonoBehaviour
     {
       currentlyHeld = true;
       targetpos = newtarget;
+      if(GetComponent<Collider>() != null)
+      {GetComponent<Collider>().enabled = false;}
       myGravity = GetComponent<Rigidbody>().useGravity;
       GetComponent<Rigidbody>().useGravity = false;
     }
@@ -73,7 +75,7 @@ public class Element : MonoBehaviour
     }
     public void OnTriggerStay(Collider col)
     {
-            if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null )
+            if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null && col.GetComponent<Element>() == null )
             {
               if(primary == true)
               {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength ;}
@@ -97,14 +99,14 @@ public class Element : MonoBehaviour
             {
               if( col.GetComponent<Element>() == null && col.transform.Find("OnFireObj") == null)
               {
-                  if(col.GetComponent<Renderer>() != null )
-                  {  col.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;}
+                  // if(col.GetComponent<Renderer>() != null )
+                  // {  col.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;}
 
                       GameObject clone = Instantiate(this.gameObject,col.transform.position  ,Quaternion.identity ) as GameObject;
                       // clone.transform.localScale = clone.transform.localScale * 4;
                       clone.transform.name = "OnFireObj";
                       clone.GetComponent<DieInTime>().lifetime = 10.0f;
-                      clone.GetComponent<Element>().currentStrength = currentStrength;
+                      clone.GetComponent<Element>().currentStrength = -1;
                       clone.transform.parent = col.transform;
 
                     currentStrength--;

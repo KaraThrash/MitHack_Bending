@@ -71,7 +71,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5995393020329778300}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91279bfbd9b0f7648a9d2cab03ad68de, type: 3}
   m_Name: 
@@ -82,7 +82,7 @@ MonoBehaviour:
   handtracker: {fileID: 0}
   elementManager: {fileID: 0}
   elementType: 1
-  currentStrength: 0
+  currentStrength: 1
   elementName: Earth
   myKinematic: 0
   myGravity: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5995393020329778300}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842fd94af1f99c54d9eef1c191b802e0, type: 3}
   m_Name: 
