@@ -41,7 +41,17 @@ public class ElementManager : MonoBehaviour
       }
 
     }
+    public void GetAllInRangeAndPull(Transform playerPos,int range,float pullforce,Vector3 dir)
+    {
 
+      foreach(GameObject go in elements)
+      {
+        if(go != null && go.GetComponent<Rigidbody>() != null && Vector3.Distance(go.transform.position,playerPos.position) < range)
+        {go.GetComponent<Rigidbody>().AddForce(dir * Mathf.Clamp(pullforce * 0.1f,1,maxPullForce),ForceMode.Impulse);}
+
+      }
+
+    }
     public void AddElementToList(GameObject newelement)
     {elements.Add(newelement);}
 }
