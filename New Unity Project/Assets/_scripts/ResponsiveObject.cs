@@ -95,7 +95,7 @@ public class ResponsiveObject : MonoBehaviour
     }
 
     private int getElementType(GameObject gobj) {
-        return 1;
+        return 2;
         //Element elem = gameObject.GetComponent<Element>();
         //return elem.elementType;
     }
