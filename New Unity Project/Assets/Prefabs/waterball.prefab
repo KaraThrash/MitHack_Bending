@@ -79,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentlyHeld: 0
   targetpos: {fileID: 0}
-  movespeed: 3
+  movespeed: 5
   handtracker: {fileID: 0}
   elementManager: {fileID: 0}
   elementType: 3

@@ -160,10 +160,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 270
       objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429402, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17edaa28fc260d24b818481559ebcfa7, type: 2}
+    - target: {fileID: 8254780873369429402, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 17edaa28fc260d24b818481559ebcfa7, type: 2}
     - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
         type: 3}
       propertyPath: ShapeModule.angle
-      value: 38.8
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
         type: 3}
@@ -178,12 +188,37 @@ PrefabInstance:
     - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.9821331
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254780873369429401, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8254780873369429407, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
         type: 3}
@@ -205,7 +240,13 @@ PrefabInstance:
       propertyPath: m_BoundingSphereOverride.w
       value: 0.34765625
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8254780873369429407, guid: 49c6b38ebfe0c6a44a441c8aaa18f631,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8254780873369429407, guid: 49c6b38ebfe0c6a44a441c8aaa18f631, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 49c6b38ebfe0c6a44a441c8aaa18f631, type: 3}
 --- !u!4 &1847073891575626343 stripped
 Transform:

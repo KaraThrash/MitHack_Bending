@@ -39,14 +39,17 @@ public class Element : MonoBehaviour
     }
     public void Move()
     {
-      // if(elementType == 3)
-      // {GetComponent<Rigidbody>().AddForce(targetpos.position - transform.position * movespeed  *  Time.deltaTime,ForceMode.Impulse);}
-      //   else
-      //   {
+      if(Vector3.Distance(targetpos.position , transform.position) > 0.5f)
+      {
 
-          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed *  Vector3.Distance(targetpos.position , transform.position) * Time.deltaTime,ForceMode.Impulse);
+      transform.position = Vector3.MoveTowards(transform.position, targetpos.position, movespeed  * 5 * Time.deltaTime);
+      }
+        else
+        {
 
-        // }
+          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed  * Time.deltaTime);
+
+        }
 
 
     }
@@ -86,10 +89,10 @@ public class Element : MonoBehaviour
               {
 
                       GameObject clone = Instantiate(this.gameObject,col.transform.position  ,Quaternion.identity ) as GameObject;
-                      clone.transform.localScale = clone.transform.localScale * 4;
+                      // clone.transform.localScale = clone.transform.localScale * 4;
                       clone.transform.name = "OnFireObj";
                       clone.GetComponent<DieInTime>().lifetime = 10.0f;
-                      clone.GetComponent<Element>().currentStrength = -1;
+                      clone.GetComponent<Element>().currentStrength = currentStrength;
                       clone.transform.parent = col.transform;
 
                     currentStrength--;
