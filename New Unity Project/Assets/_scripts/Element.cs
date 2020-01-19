@@ -50,7 +50,7 @@ public class Element : MonoBehaviour
         else
         {
 
-          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed  * 5 * Time.deltaTime);
+          GetComponent<Rigidbody>().AddForce((targetpos.position - transform.position) * movespeed  * 5 * Time.deltaTime,ForceMode.Impulse);
           GetComponent<Rigidbody>().drag = 0;
         }
 
@@ -78,7 +78,7 @@ public class Element : MonoBehaviour
             if( elementType == 0 && currentStrength != 0 && col.GetComponent<Rigidbody>() != null && col.GetComponent<Element>() == null )
             {
               if(primary == true)
-              {col.GetComponent<Rigidbody>().velocity = (col.transform.position - transform.position).normalized * currentStrength ;}
+              {col.GetComponent<Rigidbody>().AddForce(Vector3.up * currentStrength *  Time.deltaTime,ForceMode.Impulse );}
 
 
 

@@ -27,8 +27,7 @@ public class Bending : MonoBehaviour
 
     public void Push(bool midbending,Transform hand,Element element)
     {
-      if(cooldowntimer <= 0){
-      cooldowntimer = bendcooldown;
+
       switch (element.elementType)
       {
         case 0://air
@@ -124,14 +123,13 @@ public class Bending : MonoBehaviour
         default:
         break;
       }
-    }
+
       elementchargetext.text = element.currentStrength.ToString();
     }
 
     public void Pull(bool midbending,Transform hand,Element element)
     {
-      if(cooldowntimer <= 0){
-      cooldowntimer = bendcooldown;
+
       switch (element.elementType)
       {
         case 0://air
@@ -192,7 +190,8 @@ public class Bending : MonoBehaviour
             {//water ball that adds to itself
                       if(currentWaterBall == null)
                       {
-                        currentWaterBall = Instantiate(waterBall,hand.position,hand.rotation) as GameObject;
+                        GameObject cloneball = Instantiate(waterBall,hand.position,hand.rotation) as GameObject;
+                        currentWaterBall = cloneball;
                         currentWaterBall.GetComponent<Element>().Grab(hand);
                       }
                       else
@@ -227,7 +226,7 @@ public class Bending : MonoBehaviour
         break;
         default:
         break;
-      }
+
     }
     elementchargetext.text = element.currentStrength.ToString();
   }

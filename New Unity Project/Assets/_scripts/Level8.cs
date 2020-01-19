@@ -31,7 +31,7 @@ public class Level8 : MonoBehaviour
         order[1] = tree2;
         order[2] = tree3;
         order[3] = tree4;
-    
+
         foreach (GameObject t in order) {
             t.GetComponent<ResponsiveObject>().growable = false;
         }
@@ -64,5 +64,3 @@ public class Level8 : MonoBehaviour
         }
     }
 }
-
-
