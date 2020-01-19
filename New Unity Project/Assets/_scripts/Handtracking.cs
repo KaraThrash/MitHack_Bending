@@ -26,10 +26,13 @@ public class Handtracking : MonoBehaviour
 
       // TestControls();
         CreateElement();
+        leftHand.LookAt(2 * leftHand.position - leftHand.parent.position);
+
       if(heldElement != null){
 
           heldElement.transform.position = Vector3.MoveTowards(heldElement.transform.position, leftHand.transform.position, elementspeed * Time.deltaTime);
           timer -= Time.deltaTime;
+
           if(timer <= 0)
           {
             timer = timeIncrement;
@@ -96,22 +99,34 @@ public class Handtracking : MonoBehaviour
             lastposLeft = leftHand.position;
               lastposRight = rightHand.position;
             debugMovementDisplay2.text = tempstring + (handmovement.ToString());
-            // stationarycount = 0;
+            stationarycount = 0;
 
-          leftHand.LookAt(leftHand.position + (leftHand.position - lastposLeft ));
+
           if(handmovement != Vector3.zero)
           {  Bend();}
           else
-          {heldElement.GetComponent<Element>().currentStrength++;}
+          {
+
+            heldElement.GetComponent<Element>().currentStrength++;
+
+          }
 
           lastKataAction = handmovement;
       }
       else
       {
 
-            FinishBend();
-        lastposLeft = leftHand.position;
-        lastposRight = rightHand.position;
+          if(stationarycount == 0)
+          {stationarycount++;
+            Bend();
+          }else{
+
+
+              FinishBend();
+
+          }
+          lastposLeft = leftHand.position;
+          lastposRight = rightHand.position;
       }
 
     }
@@ -119,7 +134,7 @@ public class Handtracking : MonoBehaviour
 
       public void Bend()
       {
-          if(lastKataAction == Vector3.zero){return;}
+          // if(lastKataAction == Vector3.zero){return;}
           if(lastKataAction == new Vector3(0,0,-1))
           {
             bending.Push(true,leftHand,heldElement.GetComponent<Element>());
@@ -172,11 +187,11 @@ public class Handtracking : MonoBehaviour
           }
           else
           {}
-            lastKataAction = Vector3.zero;
+            // lastKataAction = Vector3.zero;
     }
     public void FinishBend()
     {
-      if(lastKataAction == Vector3.zero){return;}
+      // if(lastKataAction == Vector3.zero){return;}
       if(lastKataAction == new Vector3(0,0,-1))
       {
         bending.Push(false,leftHand,heldElement.GetComponent<Element>());
@@ -189,6 +204,7 @@ public class Handtracking : MonoBehaviour
       }
       else if(lastKataAction == new Vector3(0,-1,0))
       {
+
         Debug.Log("up");
       }
       else if(lastKataAction == new Vector3(0,1,0))
@@ -205,32 +221,52 @@ public class Handtracking : MonoBehaviour
       }
       else if(lastKataAction == new Vector3(0,-1,-1))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("up forward");
       }
       else if(lastKataAction == new Vector3(0,1,-1))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("down forward");
       }
       else if(lastKataAction == new Vector3(-1,-1,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("right up");
       }
       else if(lastKataAction == new Vector3(1,-1,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("leftup");
       }
       else if(lastKataAction == new Vector3(-1,1,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("right down");
       }
       else if(lastKataAction == new Vector3(1,1,0))
       {
+        bending.Push(false,leftHand,heldElement.GetComponent<Element>());
         Debug.Log("leftdown");
       }
       else
       {}
         lastKataAction = Vector3.zero;
-        if(heldElement != null){Destroy(heldElement);}
+          if(heldElement.GetComponent<Collider>() != null)
+          {
+            heldElement.GetComponent<Collider>().enabled = true;
+          }
+
+        if(heldElement != null){
+          if(heldElement.GetComponent<DieInTime>() != null ){
+
+            if( heldElement.GetComponent<DieInTime>().lifetime == -1){
+
+              heldElement.GetComponent<DieInTime>().lifetime = 0.1f;
+            }
+          }else{  Destroy(heldElement);}
+
+        }
     }
     public void SetElement(int newElement)
     {
