@@ -45,7 +45,7 @@ public class ResponsiveObject : MonoBehaviour
           {
             float delta = Time.time - startSizeChange;
             float newScale = Mathf.Lerp(origHeight, origHeight * targetScale, delta);
-            transform.localScale = new Vector3(transform.localScale.x+ (1 * Time.deltaTime), transform.localScale.y + (growRate * Time.deltaTime), transform.localScale.z+ (1 * Time.deltaTime));
+            transform.localScale = new Vector3(transform.localScale.x+ (2 * Time.deltaTime), transform.localScale.y + (growRate * 2 *  Time.deltaTime), transform.localScale.z+ (2 * Time.deltaTime));
             float newPos = Mathf.Lerp(origPos.y, origPos.y + 0.5f*targetScale , delta);
             transform.position = new Vector3(origPos.x, newPos, origPos.z);
           }else
@@ -174,11 +174,11 @@ public class ResponsiveObject : MonoBehaviour
     }
     public void BurnDown()
     {
-
+        levelmanager.LevelObjectChanged(this.gameObject,true,false,false);
         Destroy(this.gameObject);
     }
     private void Grow() {
-      if(growSize != transform.localScale)
+      if(growSize == transform.localScale)
       {
         targetScale = 2;
         startSizeChange = Time.time;

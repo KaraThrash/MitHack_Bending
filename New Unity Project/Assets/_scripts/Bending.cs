@@ -194,7 +194,7 @@ public class Bending : MonoBehaviour
                           // currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
                         GameObject clonewater = Instantiate(waterBall,hand.position + Vector3.up,hand.rotation) as GameObject;
                         clonewater.GetComponent<Element>().Grab(currentWaterBall.transform);
-                        clonewater.GetComponent<DieInTime>().lifetime = 10.0f;
+                        clonewater.GetComponent<DieInTime>().lifetime = 20.0f;
                         clonewater.transform.localScale = ( currentWaterBall.transform.localScale * 0.2f);
                         // clonewater.transform.parent = currentWaterBall.transform;
 
@@ -211,6 +211,10 @@ public class Bending : MonoBehaviour
                       currentWaterBall.GetComponent<Rigidbody>().useGravity = true;
                       currentWaterBall.GetComponent<Rigidbody>().AddForce(hand.forward * element.currentStrength,ForceMode.Impulse);
                       currentWaterBall.GetComponent<DieInTime>().lifetime = 5;
+                      currentWaterBall.GetComponent<Element>().LetGo();
+                      GameObject clonewater = Instantiate(waterBall,hand.position + Vector3.up,hand.rotation) as GameObject;
+                      clonewater.GetComponent<DieInTime>().lifetime = 5;
+                        clonewater.GetComponent<Element>().elementType = 3;
                     }else
                     {
 

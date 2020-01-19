@@ -112,6 +112,11 @@ public class Element : MonoBehaviour
                     currentStrength--;
                     if(currentStrength < 0){ Destroy(this.gameObject);}
               }
+              else
+              {
+                if( col.GetComponent<Element>().elementType == 3){Destroy(this.gameObject);}
+              }
             }
+
     }
 }
